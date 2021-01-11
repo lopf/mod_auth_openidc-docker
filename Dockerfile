@@ -3,7 +3,7 @@ ARG MOD_AUTH_OPENIDC_VERSION=2.4.5
 ARG CJOSE_VERSION=0.6.1.3
 RUN set -exu; \
     apt-get update; \
-    apt-get install libhiredis0.14; \
+    apt-get install libhiredis0.14 ca-certificates; \
     savedAptMark="$(apt-mark showmanual)"; \
     apt-get install -y --no-install-recommends \
 		bzip2 \
