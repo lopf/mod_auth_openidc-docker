@@ -1,4 +1,5 @@
 FROM httpd:2.4
+
 ARG MOD_AUTH_OPENIDC_VERSION=2.4.6
 ARG CJOSE_VERSION=0.6.1.3
 RUN set -exu; \
@@ -57,3 +58,5 @@ RUN set -exu; \
     rm -r /var/lib/apt/lists/*; \
     \
     httpd -v
+
+RUN echo 'Include conf/extra/openidc.conf' >> /usr/local/apache2/conf/httpd.conf

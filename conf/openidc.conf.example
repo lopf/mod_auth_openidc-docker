@@ -1,0 +1,28 @@
+LogLevel auth_openidc:debug
+
+## docker
+LoadModule auth_openidc_module /usr/local/apache2/modules/mod_auth_openidc.so
+OIDCProviderMetadataURL https://sts.windows.net/[TENANT ID]/.well-known/openid-configuration
+OIDCRedirectURI http://localhost:8080/secure/redirect.html
+# This must match the Redirect URI of Azure configuration above
+
+OIDCClientID [app_id]
+OIDCClientSecret [app_password]
+OIDCCryptoPassphrase [some_custom_passphrase]
+
+OIDCRemoteUserClaim upn
+
+<Location /secure>
+    #SSLRequireSSL
+    #SSLOptions +StdEnvVars
+
+    AuthType openid-connect
+    require valid-user
+    # OR something like
+    #Require claim "groups~xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx" 
+
+    Options Includes FollowSymLinks
+    AllowOverride AuthConfig Limit
+    Order allow,deny
+    Allow from all
+</Location>
